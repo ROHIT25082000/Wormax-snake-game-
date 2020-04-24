@@ -4,6 +4,8 @@ import random
 
 pygame.init()
 
+
+
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)
@@ -13,8 +15,8 @@ darkgreen = (0,70,0)
 violet = (238,130,238)
 cream = (255,253,208)
 
-disp_width = 800
-disp_height = 600
+disp_width = 1200
+disp_height = 800
 block_size = 20
 
 
@@ -53,7 +55,8 @@ def gameloop():
     speed = 10
     snakelist = []
     count = 1
-    
+    pygame.mixer.music.load('music.wav')
+    pygame.mixer.music.play(-1)
     random_apple_x = round(random.randrange(0,disp_width - block_size)/block_size)*block_size
     random_apple_y = round(random.randrange(0,disp_height - block_size )/block_size)*block_size
     while not gameExit:
@@ -61,6 +64,7 @@ def gameloop():
             gameDisplay.fill(skyblue)
             message("Game Over! press c to continue and q to quit",red)
             message1("Score : " + str((count-1)*10),black)
+            
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -106,18 +110,26 @@ def gameloop():
 
         for i in snakelist[:-1]:
             if i == snakeHead:
-                gameOver = True
+            	gameOver = True
+            	pygame.mixer.music.stop()
+            	pygame.mixer.music.load('gameover.wav')
+            	pygame.mixer.music.play(1)
+                
 
         if lead_x >= disp_width   or lead_x < 0 or lead_y >= (disp_height) or lead_y < 0 :
+            pygame.mixer.music.stop()
             gameOver = True
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('gameover.wav')
+            pygame.mixer.music.play(1)
+            
         
         if lead_x == random_apple_x and lead_y == random_apple_y:
             random_apple_x = round(random.randrange(0,disp_width - block_size)/block_size)*block_size
-            random_apple_y = round(random.randrange(0,disp_height - block_size)/block_size)*block_size 
+            random_apple_y = round(random.randrange(0,disp_height - block_size)/block_size)*block_size
             count +=1
-            speed +=1
+            speed += 1
         clock.tick(speed)
     pygame.quit() 
     quit()
 gameloop()
-
