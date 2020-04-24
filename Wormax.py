@@ -15,7 +15,7 @@ cream = (255,253,208)
 
 disp_width = 800
 disp_height = 600
-block_size = 10
+block_size = 20
 
 
 font = pygame.font.SysFont(None , 50)
@@ -54,8 +54,8 @@ def gameloop():
     snakelist = []
     count = 1
     
-    random_apple_x = round(random.randrange(0,disp_width - block_size)/10)*10
-    random_apple_y = round(random.randrange(0,disp_height - block_size )/10)*10 
+    random_apple_x = round(random.randrange(0,disp_width - block_size)/block_size)*block_size
+    random_apple_y = round(random.randrange(0,disp_height - block_size )/block_size)*block_size
     while not gameExit:
         while gameOver == True:
             gameDisplay.fill(skyblue)
@@ -112,10 +112,10 @@ def gameloop():
             gameOver = True
         
         if lead_x == random_apple_x and lead_y == random_apple_y:
-            random_apple_x = round(random.randrange(0,disp_width - block_size)/10)*10
-            random_apple_y = round(random.randrange(0,disp_height - block_size)/10)*10 
+            random_apple_x = round(random.randrange(0,disp_width - block_size)/block_size)*block_size
+            random_apple_y = round(random.randrange(0,disp_height - block_size)/block_size)*block_size 
             count +=1
-            speed += 3
+            speed +=1
         clock.tick(speed)
     pygame.quit() 
     quit()
